@@ -1,0 +1,72 @@
+# Bitget AI 交易 Agent - 智能趋势追踪策略
+
+> 基于 Bitget Agent Hub + GetAgent Playbook 开发的自动化交易 Agent，实现 24/7 冷静交易
+
+## 项目简介（思路 · 权重最高）
+
+我开发这个交易 Agent 的核心逻辑是：在加密货币市场高波动、高情绪化的环境中，让 AI Agent 代替人类执行**结构化、纪律性强的交易策略**，避免追涨杀跌和情绪干扰。
+
+**感知的市场信号**：
+- 技术指标信号：EMA金叉/死叉、RSI超买超卖、ATR波动率突破
+- 链上/市场数据信号：通过 Bitget MCP Server 获取实时行情和持仓数据
+- 资金费率与情绪信号：Funding Rate 异常时作为辅助判断
+
+**决策逻辑**：
+1. 市场趋势模块判断当前为趋势行情还是震荡行情
+2. 根据趋势选择对应策略（趋势跟随 或 均值回归）
+3. 动态计算开仓仓位（基于账户风险比例）
+4. 通过 Bitget API 执行开仓/平仓
+
+**风控设计**：
+- 单笔交易最大风险不超过账户总资金的 2%
+- 全局最大回撤超过 8% 时，立即全部平仓并暂停交易 24 小时
+- 采用动态止损 + Trailing Stop 机制
+
+目标是打造一个**信号感知 → 智能决策 → 安全执行 → 严格风控**的全闭环自主交易 Agent。
+
+## 完成度
+
+**已完成功能**：
+- GetAgent Playbook 完整策略搭建与测试
+- MCP Server 实现模拟与真实交易下单
+- 完整的交易日志记录系统
+- 基础回测框架（支持历史数据验证）
+- 风控模块（实时监控回撤）
+
+**尚未完成**：
+- 多 Agent 协同交易（Swarm）
+- 高级链上数据深度分析
+
+**下一步计划**：
+- 接入更多社交情绪 API
+- 优化震荡行情下的策略切换逻辑
+- 开发网页监控仪表盘
+
+**使用技术栈**：
+- Bitget Agent Hub / GetAgent Playbook / MCP Server
+- Claude 3.5 + GPT-4o 作为核心推理模型
+
+## 如何运行（其他开发者可独立跑通）
+
+1. Clone 本仓库 `git clone https://github.com/你的用户名/你的仓库名.git`
+2. 打开 [GetAgent Studio](https://studio.getagent.com)
+3. 导入 `playbook/` 目录下的策略文件
+4. 在 Bitget 创建 API Key（推荐使用**子账户**，仅授予交易权限）
+5. 将 API Key 配置到 Playbook 中
+6. 启动 Agent 并监控日志
+
+## Demo 链接
+
+- **GitHub 仓库**：https://github.com/你的用户名/你的仓库名
+- **GetAgent Studio 策略链接**：（在此粘贴你的发布链接，如果有）
+- **演示视频**：（在此粘贴推特或 YouTube 公开链接）
+
+## 实盘/模拟交易日志（必填）
+
+详见 [`logs/trading_log.md`](logs/trading_log.md)
+
+## 回测报告（选填）
+
+详见 [`backtest/`](backtest/) 目录，包含 Jupyter Notebook 代码
+
+## 项目结构
